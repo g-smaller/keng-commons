@@ -1,8 +1,31 @@
 package com.keng.common;
 
+import com.keng.common.util.StringUtil;
+
 public class Words {
 
     public static final String EMPTY                                = "";
+    public static final String META_INF                             = "META-INF/";
+
+    public enum Extension {
+        CLASS(".class"),
+
+        ;
+
+        public String ext;
+
+        Extension(String ext) {
+            this.ext = ext;
+        }
+
+        public String getExt() {
+            return ext;
+        }
+
+        public boolean eq(String ext) {
+            return StringUtil.isNotEmpty(ext) && this.getExt().equals(ext);
+        }
+    }
 
     public static class Propeties {
         public static final String JAVA_RUNTIME_NAME                = "java.runtime.name";

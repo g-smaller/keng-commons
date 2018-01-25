@@ -1,6 +1,7 @@
 package com.keng.common.dependency;
 
 import com.keng.common.util.ClassUtil;
+import com.keng.common.util.FileUtil;
 import com.keng.common.util.ResourceUtils;
 import org.junit.Test;
 
@@ -33,22 +34,12 @@ public class DependencyResolversTest {
 
     @Test
     public void urlTest() throws IOException, URISyntaxException {
-        JarFile file = new JarFile("/Users/guoguo/.m2/repository/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.jar");
-        Enumeration<JarEntry> entries = file.entries();
-        while (entries.hasMoreElements()) {
-            JarEntry entry = entries.nextElement();
-            String name = entry.getName();
-            if (name.endsWith("pom.properties")) {
-                String s = "jar:file:/Users/guoguo/.m2/repository/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.jar" + ResourceUtils.JAR_URL_SEPARATOR + entry.toString();
-                URL url = new URL(s);
-                Properties properties = new Properties();
-                properties.load(url.openStream());
-                printMap(properties);
-                break;
-            }
+        Enumeration<URL> resources = ClassLoader.getSystemClassLoader().getResources("");
+        while (resources.hasMoreElements()) {
+            System.out.println(resources.nextElement().toString());
         }
 
-        System.out.println();
+        System.out.println(FileUtil.getExtension("eff.jj.img", true));
     }
 
     @Test

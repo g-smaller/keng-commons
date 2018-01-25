@@ -1,6 +1,7 @@
 package com.keng.common.dependency;
 
 import com.keng.common.ProjectContext;
+import com.keng.common.Words;
 import com.keng.common.resolver.MetaInfResolver;
 import com.keng.common.util.ClassUtil;
 import com.keng.common.util.StringUtil;
@@ -51,7 +52,7 @@ public class DependencyResolvers {
 
             try {
                 List<Dependency> dependencies = new ArrayList<Dependency>();
-                Enumeration<URL> resources = loader.getResources(MetaInfResolver.META_INF);
+                Enumeration<URL> resources = loader.getResources(Words.META_INF);
                 if (resources != null) {
                     while (resources.hasMoreElements()) {
                         URL url = resources.nextElement();
@@ -71,7 +72,7 @@ public class DependencyResolvers {
                 }
                 return dependencies;
             } catch (IOException e) {
-                log.error("加载资源文件中的{}目录失败", MetaInfResolver.META_INF);
+                log.error("加载资源文件中的{}目录失败", Words.META_INF);
             }
         }
         return Collections.EMPTY_LIST;

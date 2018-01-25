@@ -1,14 +1,12 @@
 package com.keng.common.dependency;
 
-import com.keng.common.Words;
+import com.keng.common.maven.DependencyUtil;
 import com.keng.common.util.ResourceUtils;
 import com.keng.common.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Enumeration;
-import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -40,16 +38,7 @@ public class MavenResolver extends DependencyResolver {
                     String name = entry.getName();
                     if (name.endsWith(metaInfFile())) {
                         String s = jarProtocolPath + ResourceUtils.JAR_URL_SEPARATOR + name.toString();
-                        URL url = new URL(s);
-                        Properties properties = new Properties();
-                        properties.load(url.openStream());
-                        String groupId = properties.getProperty(DependencyAttr.GROUP_ID, Words.EMPTY);
-                        String artifactId = properties.getProperty(DependencyAttr.ARTIFACT_ID, Words.EMPTY);
-                        String version = properties.getProperty(DependencyAttr.VERSION, Words.EMPTY);
-                        if (isNotEmpty(groupId, artifactId, version)) {
-                            return Dependency.of(groupId, artifactId, version);
-                        }
-                        break;
+                        return DependencyUtil.pomPropertiesToDependency(s);
                     }
                 }
             }

@@ -15,11 +15,20 @@ public class StringUtil {
 
     private static final String PACKAGE_SEPARATOR = CURRENT_PATH;
 
-    public static boolean isEmpty(String str) {
-        return str == null || str.equals("") || str.length() == 0;
+    public static boolean isEmpty(String... str) {
+        if (str != null && str.length > 0) {
+            int count = 0;
+            for (String s: str) {
+                if (s == null || s.equals("") || s.length() == 0) {
+                    count++;
+                }
+            }
+            return str.length == count;
+        }
+        return true;
     }
 
-    public static boolean isNotEmpty(String str) {
+    public static boolean isNotEmpty(String... str) {
         return !isEmpty(str);
     }
 
