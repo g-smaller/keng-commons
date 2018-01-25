@@ -17,4 +17,12 @@ public class ProjectContext {
     public static String getHome() {
         return System.getenv(Words.Environment.HOME);
     }
+
+    public static String getJreHome() {
+        return System.getProperty(Words.Propeties.JAVA_HOME);
+    }
+
+    public static String getJaveHome() {
+        return System.getenv(Words.Environment.JAVA_HOME);
+    }
 }

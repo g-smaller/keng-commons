@@ -1,53 +1,27 @@
-package com.keng.common.maven;
+package com.keng.common.dependency;
 
-import com.keng.common.ProjectContext;
+import com.keng.common.maven.Settings;
 import com.keng.common.util.FileUtil;
 import com.keng.common.util.ResourceUtils;
 import com.keng.common.util.StringUtil;
 
-import java.net.URL;
+import java.io.IOException;
 
-public class MavenUtil {
-    private static final Settings settings;
-    public static final String M2_DIR           = "/.m2";
-    public static final String M2_SETTINGS      = M2_DIR + "/settings.xml";
-    public static final String M2_REPOSITORY    = M2_DIR + "/repository";
+public class URLResolver extends DependencyResolver {
 
+    public static final URLResolver RESOLVER = new URLResolver();
 
-    static {
-        settings = loadSettings();
-    }
-
-    public static Settings loadSettings() {
-        Settings settings = new Settings();
-        settings.setLocalRepository(ProjectContext.getUserHome() + M2_REPOSITORY);
-        return settings;
-    }
-
-    public static String getLocalRepository() {
-        return settings.getLocalRepository();
-    }
-
-    /**
-     * 根据Jar 文件路径解析成
-     *      groupId
-     *      artifactId
-     *      version
-     *
-     * @param url
-     * @return
-     */
-    public static Dependency resolve(URL url) {
-        if (url != null) {
-            String s = url.toString();
-            String fullPath = clearProtocol(s);
-            if (fullPath.startsWith(getLocalRepository())) {
+    @Override
+    protected Dependency resolve(String filePath) throws IOException {
+        if (StringUtil.isNotEmpty(filePath)) {
+            String fullPath = clearProtocol(filePath);
+            if (fullPath.startsWith(Settings.getLocalRepository())) {
                 /**
                  * 例如url： /Users/xx/.m2/repository/org/springframework/spring-beans/4.2.3.RELEASE/spring-beans-4.2.3.RELEASE.jar!/MENIFEST.MF
                  *
                  * jarPath = /org/springframework/spring-beans/4.2.3.RELEASE/spring-beans-4.2.3.RELEASE.jar!/MENIFEST.MF
                  */
-                String jarPath = fullPath.substring(getLocalRepository().length(), fullPath.length());
+                String jarPath = fullPath.substring(Settings.getLocalRepository().length(), fullPath.length());
                 /**
                  * 截取成： /org/springframework/spring-beans/4.2.3.RELEASE/spring-beans-4.2.3.RELEASE.jar
                  */
@@ -87,10 +61,9 @@ public class MavenUtil {
         return null;
     }
 
-    public static String clearProtocol(String path) {
+    private static String clearProtocol(String path) {
         if (StringUtil.isNotEmpty(path)) {
-            String s = ResourceUtils.clearJarProtocol(path);
-            return ResourceUtils.clearFileProtocol(s);
+            return ResourceUtils.clearJarAndFileProtocol(path);
         }
         return path;
     }
@@ -101,5 +74,4 @@ public class MavenUtil {
                 version, fileSeparator, artifactId, version, ResourceUtils.JAR_FILE_EXTENSION);
         return jarPath.replace(artifactIdAndVersion, "");
     }
-
 }

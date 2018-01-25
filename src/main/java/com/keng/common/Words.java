@@ -2,10 +2,12 @@ package com.keng.common;
 
 public class Words {
 
+    public static final String EMPTY                                = "";
+
     public static class Propeties {
         public static final String JAVA_RUNTIME_NAME                = "java.runtime.name";
         public static final String JAVA_RUNTIME_VERSION             = "java.runtime.version";
-        public static final String JAVA_VERSION                      = "java.version";
+        public static final String JAVA_VERSION                     = "java.version";
 
         public static final String SUN_BOOT_LIBRARY_PATH            = "sun.boot.library.path";
         public static final String JAVA_VM_VERSION                  = "java.vm.version";

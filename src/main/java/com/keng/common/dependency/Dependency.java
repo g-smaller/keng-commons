@@ -1,4 +1,4 @@
-package com.keng.common.maven;
+package com.keng.common.dependency;
 
 public class Dependency {
 

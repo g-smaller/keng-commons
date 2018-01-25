@@ -30,4 +30,8 @@ public class ResourceUtils {
         return url;
     }
 
+    public static String clearJarAndFileProtocol(String url) {
+        return clearFileProtocol(clearJarProtocol(url));
+    }
+
 }
