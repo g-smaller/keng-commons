@@ -36,6 +36,10 @@
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
         <!-- slf4j Logging End-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

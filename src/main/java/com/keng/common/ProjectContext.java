@@ -25,4 +25,8 @@ public class ProjectContext {
     public static String getJaveHome() {
         return System.getenv(Words.Environment.JAVA_HOME);
     }
+
+    public static String getJavaClassPath() {
+        return System.getProperty(Words.Propeties.JAVA_CLASS_PATH);
+    }
 }

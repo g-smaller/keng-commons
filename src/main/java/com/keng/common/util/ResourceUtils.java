@@ -38,4 +38,15 @@ public class ResourceUtils {
         return clearFileProtocol(clearJarProtocol(url));
     }
 
+    public static String joinJarProtocol(String url) {
+        if (StringUtil.isNotEmpty(url)) {
+            String first = url.substring(0, 1);
+            if (!FileUtil.getFileSeparator().equals(first)) {
+                url = FileUtil.getFileSeparator() + url;
+            }
+            return JAR_URL_PREFIX + FILE_URL_PREFIX + url;
+        }
+        return url;
+    }
+
 }

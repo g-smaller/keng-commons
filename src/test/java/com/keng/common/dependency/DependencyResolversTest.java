@@ -1,24 +1,21 @@
 package com.keng.common.dependency;
 
+import com.keng.common.analyse.DependencyAnalyzer;
 import com.keng.common.util.ClassUtil;
-import com.keng.common.util.FileUtil;
-import com.keng.common.util.ResourceUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.slf4j.impl.StaticLoggerBinder;
+import org.slf4j.impl.StaticMDCBinder;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.*;
-import java.util.jar.Attributes;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.jar.Manifest;
-
-import static org.junit.Assert.*;
 
 public class DependencyResolversTest {
 
@@ -34,12 +31,36 @@ public class DependencyResolversTest {
 
     @Test
     public void urlTest() throws IOException, URISyntaxException {
-        Enumeration<URL> resources = ClassLoader.getSystemClassLoader().getResources("");
-        while (resources.hasMoreElements()) {
-            System.out.println(resources.nextElement().toString());
-        }
+        List<String> strings = ClassUtil.currentProjectSource();
+        strings.forEach(System.out::println);
 
-        System.out.println(FileUtil.getExtension("eff.jj.img", true));
+        String s = strings.get(3);
+        JarFile jarFile = new JarFile(s);
+        Enumeration<JarEntry> entries = jarFile.entries();
+        while (entries.hasMoreElements()) {
+            System.out.println(entries.nextElement().toString());
+        }
+    }
+
+    @Test
+    public void methodTest() throws NoSuchMethodException {
+        Class<StaticLoggerBinder> staticLoggerBinderClass = StaticLoggerBinder.class;
+        Method getMDCA = staticLoggerBinderClass.getMethod("getLoggerFactoryClassStr");
+        System.out.println(getMDCA.getReturnType());
+    }
+
+    @Test
+    public void analyzerTest() throws Exception {
+        DependencyAnalyzer analyzable = new DependencyAnalyzer();
+
+        analyzable.analyze(map -> {
+            map.forEach((k, v) -> {
+                if (v.size() > 1) {
+                    System.out.println(k + " - " + StringUtils.join(v));
+                }
+            });
+        });
+
     }
 
     @Test

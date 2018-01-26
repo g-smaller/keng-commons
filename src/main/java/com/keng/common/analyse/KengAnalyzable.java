@@ -1,7 +1,9 @@
 package com.keng.common.analyse;
 
-public interface KengAnalyzable {
+import java.util.function.Consumer;
 
-    void analyze() throws Exception;
+public interface KengAnalyzable<R> {
+
+    void analyze(Consumer<R> consumer) throws Exception;
 
 }
