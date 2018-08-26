@@ -16,7 +16,7 @@ public class CharsetUtil {
     public static final String US_ASCII         = "US-ASCII";
 
     public static final String GBK              = "gbk";
-    public static final String GB2312              = "GB2312";
+    public static final String GB2312           = "GB2312";
 
 
 

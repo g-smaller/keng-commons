@@ -2,6 +2,7 @@ package com.keng.common.util;
 
 import com.keng.common.ProjectContext;
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.util.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

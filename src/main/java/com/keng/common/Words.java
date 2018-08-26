@@ -28,6 +28,7 @@ public class Words {
     }
 
     public static class Propeties {
+
         public static final String JAVA_RUNTIME_NAME                = "java.runtime.name";
         public static final String JAVA_RUNTIME_VERSION             = "java.runtime.version";
         public static final String JAVA_VERSION                     = "java.version";

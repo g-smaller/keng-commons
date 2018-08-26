@@ -8,6 +8,7 @@ import org.slf4j.impl.StaticLoggerBinder;
 import org.slf4j.impl.StaticMDCBinder;
 
 import java.io.IOException;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.Enumeration;
@@ -56,8 +57,9 @@ public class DependencyResolversTest {
         analyzable.analyze(map -> {
             map.forEach((k, v) -> {
                 if (v.size() > 1) {
-                    System.out.println(k + " - " + StringUtils.join(v));
+
                 }
+                System.out.println(k + " - " + StringUtils.join(v));
             });
         });
 
@@ -82,5 +84,10 @@ public class DependencyResolversTest {
         map.forEach((k, v) -> {
             System.out.println(k + " - " + v);
         });
+    }
+
+    @Test
+    public void annotionTest() {
+
     }
 }

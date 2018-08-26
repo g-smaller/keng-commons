@@ -6,6 +6,18 @@ public class ProjectContext {
         return System.getProperty(Words.Propeties.USER_HOME);
     }
 
+    /**
+     * {@link ProjectContext#getCurrentDir()}
+     * @return
+     */
+    public static String getUserDir() {
+        return System.getProperty(Words.Propeties.USER_DIR);
+    }
+
+    /**
+     * {@link ProjectContext#getUserDir()}
+     * @return
+     */
     public static String getCurrentDir() {
         return System.getenv(Words.Environment.PWD);
     }
